@@ -2,7 +2,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import SideNav from '../../../components/admin/sideNav'
-import { db } from '../../utils/fire'
+import { db } from '../../../utils/fire'
 import Link from 'next/link'
 
 export default function OneInquiry() {

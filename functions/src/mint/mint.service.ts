@@ -1,6 +1,25 @@
 import Web3 from 'web3'
+import Provider from '@truffle/hdwallet-provider'
 import { AbiItem } from 'web3-utils'
-import * as Minter from '../utils/artifacts/contracts/Minter.sol/Minter.json'
+import Minter from '../contract/MyToken.json'
+
+
+
+async function mintHdWeb3(address: string) {
+  console.log('[ INITIATED ]')
+  try {
+    const provider = new Provider(process.env.CONTRACT_OWNER, process.env.INFURA_RPC)
+    const web3 = new Web3(provider)
+    const networkId = await web3.eth.net.getId()
+    const contract = new web3.eth.Contract(Minter.abi as AbiItem[], Minter.networks[networkId].address)
+    const receipt = await contract.methods.quikMint(address).send({ from: process.env.CONTRACT_OWNER_ADDRESS })
+    console.log(`[ SUCCESS ] - Transaction hash: ${receipt.transactionHash}`)
+    return { success: true, receipt }
+  } catch (err) {
+    console.log(`[ FAILURE ] - ${err}`)
+    return { success: false }
+  }
+}
 
 //WORKS! as of 3/17/2022 @2:18PM
 async function mintWeb3(address: string) {
@@ -49,4 +68,4 @@ async function mintWeb3(address: string) {
   }
 }
 
-export const mintService = { mintWeb3 }
+export const mintService = { mintWeb3, mintHdWeb3 }

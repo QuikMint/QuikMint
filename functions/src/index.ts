@@ -12,6 +12,10 @@ app.use(express.json())
 /**
  * Endpoint Routing
  */
+
+import { clientRouter } from './client'
+app.use('/clients', clientRouter)
+
 import { customerRouter } from './customer'
 app.use('/customers', customerRouter)
 
