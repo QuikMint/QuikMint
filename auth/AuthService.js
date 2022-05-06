@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import { app } from '../utils/fire'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 
 class AuthService {
@@ -23,4 +23,4 @@ class AuthService {
   }
 }
 
-export default new AuthService()
+export default new AuthService(app)
