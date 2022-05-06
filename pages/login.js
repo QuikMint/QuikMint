@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
+import { app } from '../utils/fire'
+import { useRouter } from 'next/router'
+import useAuth from '../auth'
 
 export default function Login() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
-  function handleSignIn(e) {
-		//do stuff
-	}
+	const router = useRouter()
 
-	function googleSignIn(e) {
-		//do google stuff
-	}
+	const { user, loginWithGoogle, error } = useAuth()
 
   return (
     <main className='flex items-center justify-center pt-32'>
+			{error && console.log(error)}
       <div
         id='auth-box'
         className='flex flex-col items-center justify-center w-96 h-full space-y-2 p-4 rounded-md bg-[#f6f8fa] border-[1px] border-[#d8dee4]'
@@ -39,14 +39,14 @@ export default function Login() {
           <button
             id='sign-in'
             className='mt-2 px-4 py-1 w-full text-center font-semibold text-white shadow-md rounded-md hover:shadow-inner bg-[#4ca54c]'
-            onClick={handleSignIn}
+            onClick={() => console.log('hello')}
           >
             Sign In
           </button>
           <button
             id='google-signin'
-            onClick={googleSignIn}
-            className='w-min self-start pt-3'
+            onClick={loginWithGoogle}
+            className='w-min self-start p-3'
           >
             <svg
               className='w-5 h-5'

@@ -4,9 +4,10 @@ import { getFirestore } from 'firebase-admin/firestore'
 import { serviceAccount } from './service-account.json'
 const typedServiceAccount = serviceAccount as ServiceAccount
 
-initializeApp({
+const app = initializeApp({
   credential: cert(typedServiceAccount)
 });
 
-const db = getFirestore();
+const db = getFirestore(app)
 export default db
+export { app }
