@@ -20,7 +20,7 @@ export default function Admin() {
             className='flex items-center justify-start p-6 bg-indigo-600 w-64 rounded-xl space-x-2 mt-10 shadow-lg'
           >
             <div>
-              <span className='text-sm font-semibold text-gray-400'>Today's Date</span>
+              <span className='text-sm font-semibold text-gray-400'>Today{"'"}s Date</span>
               <h1 className='text-2xl font-bold'>{new Date().toISOString()}</h1>
             </div>
           </div>

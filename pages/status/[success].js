@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faXmarkCircle, faHandPointRight } from '@fortawesome/free-regular-svg-icons'
 
-export default function success() {
+export default function Success() {
 
 	const router = useRouter()
 	const success = router.query.success === 'true' ? true : false
@@ -26,13 +27,15 @@ export default function success() {
               Your order has been received.
             </div>
             <div>
-              <a href='/next-steps' className='text-center text-2xl rounded-md bg-blue-300 p-4 flex flex-row space-x-4 items-center hover:cursor-pointer '>
-                <p>Next steps</p>
-                <div className='w-12 h-12'>
-                  <FontAwesomeIcon icon={faHandPointRight} className='text-lime-600' />
-                </div>
-                <div className='hidden hover:visible w-5 h-5 bg-slate-300'></div>
-              </a>
+              <Link href='/next-steps'>
+                <a className='text-center text-2xl rounded-md bg-blue-300 p-4 flex flex-row space-x-4 items-center hover:cursor-pointer '>
+                  <p>Next steps</p>
+                  <div className='w-12 h-12'>
+                    <FontAwesomeIcon icon={faHandPointRight} className='text-lime-600' />
+                  </div>
+                  <div className='hidden hover:visible w-5 h-5 bg-slate-300'></div>
+                </a>
+              </Link>
             </div>
           </div>
         ) : (
