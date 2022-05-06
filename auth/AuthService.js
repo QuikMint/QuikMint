@@ -1,5 +1,5 @@
 import { app } from '../utils/fire'
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signInWithCredential, signOut } from 'firebase/auth'
 
 class AuthService {
   constructor(firebaseApp) {
@@ -10,7 +10,8 @@ class AuthService {
     const provider = new GoogleAuthProvider()
 
     try {
-      const userCred = await signInWithPopup(this.auth, new GoogleAuthProvider())
+      const userCred = await signInWithRedirect(this.auth, new GoogleAuthProvider())
+			sign
       return { user: userCred.user }
     } catch (e) {
       return {
