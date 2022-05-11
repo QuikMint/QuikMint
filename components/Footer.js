@@ -3,8 +3,8 @@ import Link from 'next/link'
 export const Footer = () => {
   return (
       <nav
-        className='flex flex-wrap items-center justify-between w-full py-4 md:py-0 px-4 text-lg text-white bg-slate-700
-      hover:bg-blue-500 shadow-lg transition-all delay-50 h-14 mt-0 fixed bottom-0 left-0'
+        className='flex flex-row items-center justify-between w-full py-4 md:py-0 px-4 text-lg text-white bg-slate-700
+      hover:bg-blue-500 shadow-lg transition-all delay-50 h-14 mt-0'
       >
         <div className='w-full md:items-center md:w-auto' id='menu'>
           <ul className='p--2 text-base flex md:justify-between md:pt-0 space-x-4'>

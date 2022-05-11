@@ -5,9 +5,6 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {
-      cursor: ['disabled'],
-    },
   },
   plugins: [],
 }

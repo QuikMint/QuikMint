@@ -1,4 +1,3 @@
-
 export const items = [
 		{
 			"title": "Home",
@@ -15,9 +14,5 @@ export const items = [
 		{
 			"title": "About",
 			"path": "/about"
-		},
-		{
-			"title": "Log In",
-			"path": "/login"
 		}
 	]

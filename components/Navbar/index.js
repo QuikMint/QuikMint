@@ -3,8 +3,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { items } from './pages'
+import { useAuth } from '../../auth/AuthProvider'
 
-export const Navbar = () => {
+
+const Navbar = ({ className }) => {
+  const { logout, currentUser } = useAuth()
+
   const router = useRouter()
 
   const [active, setActive] = useState()
@@ -15,18 +19,13 @@ export const Navbar = () => {
   }, [router.pathname])
 
   return (
-    <div className='min-h-full'>
+    <div className={`min-h-full ${className}`}>
       <nav className='bg-gray-800'>
         <div className='mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center justify-between h-16'>
             <div className='flex items-center'>
               <div className='flex flex-row space-x-2 items-center'>
-                <Image
-                  height='40'
-                  width='40'
-                  src='/favicon.ico'
-                  alt='Logo'
-                />
+                <Image height='40' width='40' src='/favicon.ico' alt='Logo' />
                 <p className='text-2xl text-white'>QuikMint</p>
               </div>
               <div className='hidden md:block' id='desktop menu'>
@@ -45,6 +44,36 @@ export const Navbar = () => {
                       </a>
                     </Link>
                   ))}
+                  {currentUser ? (<><Link href='/dashboard'>
+                    <a
+                      className={
+                        active === '/dashboard'
+                          ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                      }
+                      aria-current='page'
+                    >
+                      Dashboard
+                    </a>
+                  </Link>
+                  <button
+                    className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+                    onClick={logout}
+                  >
+                    Logout
+                  </button></>) : <Link href='/login'>
+                    <a
+                      className={
+                        active === '/login'
+                          ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                      }
+                      aria-current='page'
+                    >
+                      Log in
+                    </a>
+                  </Link>}
+                  
                 </div>
               </div>
             </div>
@@ -121,9 +150,17 @@ export const Navbar = () => {
                 </a>
               </Link>
             ))}
+            <button
+              className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+              onClick={logout}
+            >
+              Logout
+            </button>
           </div>
         </div>
       </nav>
     </div>
   )
 }
+
+export default Navbar
