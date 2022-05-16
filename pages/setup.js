@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '../auth/AuthProvider'
-import Link from 'next/link'
-import { Form, Alert, Container, Col, Row, InputGroup, Card } from 'react-bootstrap'
+import { Form, Alert, Col, Row, InputGroup, Card } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Head from 'next/head'
 import { withNotSetupUser } from '../auth/hooks'
 
 function Setup() {
-  const { googleLogin, signup } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -45,7 +43,6 @@ function Setup() {
 			console.log(err)
 		}
 		setLoading(false)
-		
   }
 
   return (
@@ -171,7 +168,7 @@ function Setup() {
                 <Form.Control ref={descriptionRef} as='textarea' className='lg:h-96' />
               </Form.Group>
               <Form.Group>
-                <Button variant='primary' className='bg-blue-500' type='submit'>
+                <Button variant='primary' className='bg-blue-500' type='submit' disabled={loading}>
                   Submit
                 </Button>
               </Form.Group>

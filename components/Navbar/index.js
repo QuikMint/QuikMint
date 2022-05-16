@@ -25,7 +25,7 @@ const Navbar = ({ className }) => {
           <div className='flex items-center justify-between h-16'>
             <div className='flex items-center'>
               <div className='flex flex-row space-x-2 items-center'>
-                <Image height='40' width='40' src='/favicon.ico' alt='Logo' />
+                <Image height='40' width='40' src='/favicon.ico' alt='Logo' className='rounded-md' />
                 <p className='text-2xl text-white'>QuikMint</p>
               </div>
               <div className='hidden md:block' id='desktop menu'>
