@@ -1,12 +1,19 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Footer } from './Footer'
 import Navbar from './Navbar'
 
 export default function Layout({ children }) {
 
+  const [nav, setNav] = useState(true)
+
   const router = useRouter()
+
+  useEffect(() => {
+    setNav(true)
+    if (router.pathname.includes('/dashboard')) setNav(() => false)
+  }, [router.pathname])
 
   return (
     <>
@@ -14,9 +21,9 @@ export default function Layout({ children }) {
         <title>QuikMint</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Navbar className='sticky top-0 z-[1000]'/>
+      {nav && <Navbar className='sticky top-0 z-[1000]' />}
       {children}
-      <Footer />
+      {nav && <Footer />}
     </>
   )
 }

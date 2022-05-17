@@ -1,0 +1,19 @@
+.actions {
+  width: 90px;
+  height: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+	color: #635BFF;
+  border-radius: 8px;
+  border: 5px;
+  border-color: #635BFF;
+}
+
+.bg-sail {
+	background-color: #F6F8FA;
+}
