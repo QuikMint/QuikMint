@@ -2,7 +2,15 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-export default function DashNav({ userData, active }) {
+export default function DashNav({ userData }) {
+
+	const [active, setActive] = useState('/dashboard')
+
+	const router = useRouter()
+
+	  useEffect(() => {
+      setActive(router.pathname)
+    }, [router.pathname])
 
 	return (
     <>

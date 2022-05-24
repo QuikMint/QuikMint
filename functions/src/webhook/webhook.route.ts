@@ -3,8 +3,8 @@ import express from 'express'
 
 const webhookRouter = express.Router()
 
-import jwtCheck from '../config/oauth.config'
-webhookRouter.use(jwtCheck)
+// import jwtCheck from '../config/oauth.config'
+// webhookRouter.use(jwtCheck)
 
 webhookRouter.post('/', webhookController.customerFromStripe)
 

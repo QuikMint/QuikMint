@@ -22,7 +22,6 @@ export async function newCustomerFromStripe(event: any) {
       created: Date.now(),
       id: v4(),
       name: cust.name || '',
-      customer_id: cust.id,
       email: cust.email,
       phone: cust.phone,
       complete: false,

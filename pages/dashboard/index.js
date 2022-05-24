@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import Loading from '../../components/loading'
 import { useRouter } from 'next/router'
 import DashNav from '../../components/Navbar/dash'
+import Graph from '../../components/graph'
 
 function Dashboard() {
   const { currentUser } = useAuth()
@@ -14,7 +15,6 @@ function Dashboard() {
 
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [active, setActive] = useState('/dashboard')
 
   useEffect(() => {
     const ref = doc(db, 'clients', currentUser.uid)
@@ -23,10 +23,6 @@ function Dashboard() {
       setLoading(false)
     })
   })
-
-  useEffect(() => {
-    setActive(router.pathname)
-  }, [router.pathname])
 
   return (
     <>
@@ -43,7 +39,7 @@ function Dashboard() {
           <Loading />
         ) : (
           <div className='w-full h-full'>
-            <DashNav userData={userData} active={active}/>
+            <DashNav userData={userData} />
             <div
               id='warning'
               className='flex flex-col bg-[#fef4fa] border-1 rounded-md mx-5 border-[#ebeef1] mt-4 p-2'
@@ -227,6 +223,7 @@ function Dashboard() {
                     className='bg-[#f4f8fa] w-auto h-[90%] rounded-b-[10px] border-x-[1px] border-b-[1px]'
                   >
                     <div id='badge'></div>
+                    <Graph />
                   </div>
                 </div>
               </div>

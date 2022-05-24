@@ -1,20 +1,22 @@
-export const root = true;
-export const env = {
+const root = true;
+const env = {
   es6: true,
   node: true,
 };
-export const parser = '@typescript-eslint/parser';
-export const parserOptions = {
+const parser = '@typescript-eslint/parser';
+const parserOptions = {
   project: ['tsconfig.json', 'tsconfig.dev.json'],
   sourceType: 'module',
 };
-export const ignorePatterns = [
+const ignorePatterns = [
   '/lib/**/*', // Ignore built files.
 ];
-export const plugins = ['@typescript-eslint', 'import'];
-export const rules = {
+const plugins = ['@typescript-eslint', 'import'];
+const rules = {
   quotes: ['warn', 'single'],
   'import/no-unresolved': 0,
   semi: 0,
   'object-curly-spacing': 0
 };
+
+module.exports = {root, env, parser, parserOptions, ignorePatterns, plugins, rules}

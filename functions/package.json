@@ -16,8 +16,8 @@
   "dependencies": {
     "@sendgrid/mail": "^7.6.2",
     "@truffle/hdwallet-provider": "^2.0.8",
+    "@types/ethereum-protocol": "^1.0.2",
     "@types/express-jwt": "^6.0.4",
-    "@types/web3": "^1.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/web3": "^1.0.20",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",

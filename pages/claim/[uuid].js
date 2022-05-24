@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import Loading from '../../components/loading'
 
 const GetNFT = () => {
   /**
@@ -13,11 +14,23 @@ const GetNFT = () => {
   const [initiated, setInitiated] = useState(false)
   const [success, setSuccess] = useState(false)
   const [complete, setComplete] = useState(true)
+  const [fetching, setFetching] = useState(true)
 
   //input handlers
   const [nerd, setNerd] = useState(false)
   const [mintLoading, setMintLoading] = useState(false)
   const [messages, setMessages] = useState([])
+
+  //push message to UI console/message stack
+  const pushMessage = message => {
+    setMessages(messages => [...messages, message])
+  }
+
+  //show different form based on {{nerd}} state
+  const FormSwitch = () => {
+    return nerd ? <WithAddress /> : <WithoutAddress />
+  }
+  const handleFormSwitch = e => setNerd(e.target.checked)
 
   const router = useRouter()
   var uuid = router.query.uuid
@@ -28,9 +41,16 @@ const GetNFT = () => {
    */
   useEffect(() => {
     if (uuid !== undefined && v4.test(uuid)) {
-      axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/customers/${uuid}`).then(response => {
-        setComplete(() => response.data.complete)
-      })
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/customers/${uuid}`)
+        .then(response => {
+          setComplete(() => response.data.complete || response.data.initiated)
+          setInitiated(() => {response.data.initiated})
+          if (response.data.complete === undefined) {
+            setComplete(() => true)
+          }
+          setFetching(() => false)
+        })
     }
   }, [uuid, success])
 
@@ -55,19 +75,40 @@ const GetNFT = () => {
           id='address'
           name='address'
           className='appearance-none border border-green-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-          disabled={complete}
+          disabled={complete || mintLoading}
         />
         <button
           id='submit'
           type='submit'
           className=' disabled:cursor-not-allowed bg-green-500 hover:bg-green-700 text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-          disabled={complete}
+          disabled={complete || mintLoading}
         >
           Mint
         </button>
       </form>
     )
   }
+
+  //Mints nft to wallet
+  const serverMintInsecure = async address => {
+    setMintLoading(() => true)
+    const mintEndpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/mint/${uuid.toString()}`
+    axios
+      .post(mintEndpoint, {
+        address: address,
+      })
+      .then(response => {
+        pushMessage({ message: response.data.toString() })
+        setSuccess(() => true)
+        setMintLoading(() => false)
+        pushMessage({ message: `Completed @ ${new Date().toLocaleString()}` })
+      })
+      .catch(() => {
+        pushMessage({ error: true, message: `FATAL - exited @ ${new Date().toLocaleString()}` })
+        setMintLoading(false)
+      })
+  }
+
   //Handle existing address
   const handleWithAddress = async e => {
     setInitiated(() => true)
@@ -79,14 +120,8 @@ const GetNFT = () => {
       pushMessage({ error: true, message: `${address} is not a valid address.` })
       return
     }
+    serverMintInsecure(address)
     pushMessage({ message: `Initiated @ ${new Date().toLocaleString()}` })
-
-    if (!(await serverMintInsecure(address))) {
-      pushMessage({ error: true, message: `FATAL - exited @ ${new Date().toLocaleString()}` })
-      return
-    }
-    setSuccess(() => true)
-    pushMessage({ message: `Completed @ ${new Date().toLocaleString()}` })
   }
   //Button only form -- Generate wallet for customer
   const WithoutAddress = () => {
@@ -96,7 +131,7 @@ const GetNFT = () => {
           Generate a Private Key (Make a fresh wallet){' '}
         </label>
         <button
-          disabled={complete} // change initiated to mintloading and add mintloading logic to withoutaddress only
+          disabled={complete || mintLoading} // change initiated to mintloading and add mintloading logic to withoutaddress only
           onClick={handleWithoutAddress}
           id='gen-private'
           className='bg-blue-500 hover:bg-blue-700 text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
@@ -119,13 +154,7 @@ const GetNFT = () => {
     [ADDRESS]: ${wallet.address}
     `,
     })
-    if (!(await serverMintInsecure(wallet.address))) {
-      pushMessage({ error: true, message: `FATAL - exited @ ${new Date().toLocaleString()}` })
-      setMintLoading(() => false)
-      return
-    }
-    setSuccess(() => true)
-    pushMessage({ message: `Completed @ ${new Date().toLocaleString()}` })
+    serverMintInsecure(wallet.address)
   }
   //creates a random eth private key client-side
   const generatePk = () => {
@@ -142,28 +171,6 @@ const GetNFT = () => {
     //Penis cock nigga NIGGA They all die . Hang then
     return wallet
   }
-  //show different form based on {{nerd}} state
-  const FormSwitch = () => {
-    return nerd ? <WithAddress /> : <WithoutAddress />
-  }
-  const handleFormSwitch = e => setNerd(e.target.checked)
-
-  //Mints nft to wallet param
-  const serverMintInsecure = async address => {
-    const mintEndpoint = process.env.NEXT_PUBLIC_BACKEND_URL + '/mint/' + uuid.toString()
-    const response = axios
-      .post(mintEndpoint, {
-        address: address,
-      })
-      .then((data, err) => data || err)
-    const responseMessage = (await response).data.toString()
-    if (response.status !== 200) {
-      pushMessage({ error: true, message: responseMessage })
-      return false
-    }
-    pushMessage({ message: responseMessage })
-    return true
-  }
 
   /**
    * Message box component
@@ -176,8 +183,9 @@ const GetNFT = () => {
         }`}
       >
         <div className='m-2 bg-slate-800 w-full h-full rounded-md font-mono'>
-          <div className='rounded-t-md bg-sky-700 text-white'>
+          <div className='flex flex-row rounded-t-md bg-sky-700 text-white'>
             <p className='p-2 text-lg'>Transaction Updates</p>
+            {mintLoading && <Loading />}
           </div>
           <div className='p-2 text-xl overflow-y-scroll scroll-smooth max-h-56'>
             {messages.map((v, i) => {
@@ -196,14 +204,10 @@ const GetNFT = () => {
       </div>
     )
   }
-  //push message to UI console/message stack
-  const pushMessage = message => {
-    setMessages(messages => [...messages, message])
-  }
 
   return (
     <div>
-      <div className='flex items-center flex-col m-2'>
+      <div className='flex items-center flex-col m-2 mb-96'>
         <div
           id='cool-switch-lol'
           className={`flex items-center justify-center ${
@@ -214,7 +218,7 @@ const GetNFT = () => {
           <label htmlFor='toggle' className='flex items-center cursor-pointer'>
             <div className='relative m-2 disabled:cursor-not-allowed'>
               <input
-                disabled={complete}
+                disabled={complete || mintLoading}
                 type='checkbox'
                 id='toggle'
                 className='sr-only'
@@ -233,7 +237,16 @@ const GetNFT = () => {
           className='bg-slate-200 h-full w-full xl:p-4 ml-4 mr-4 rounded-xl flex justify-center shadow-lg m-3 space-even'
         >
           <div className='bg-slate-400 p-2 rounded-md m-2'>
-            {complete ? 'You\'ve already claimed your NFT' : <FormSwitch />}
+            {fetching ? (
+              <>
+                <p>One moment please</p>
+                <Loading />
+              </>
+            ) : complete ? (
+              "You've already claimed your NFT"
+            ) : (
+              <FormSwitch />
+            )}
           </div>
         </div>
         <OutputBox />

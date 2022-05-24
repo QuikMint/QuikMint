@@ -7,6 +7,7 @@ type Customer = {
   created?: number
   changes?: ArrayLike<any>
   client_id?: string
+  initiated?: boolean
 }
 
 export { Customer }
