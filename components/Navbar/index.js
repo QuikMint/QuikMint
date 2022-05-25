@@ -20,13 +20,18 @@ const Navbar = ({ className }) => {
 
   return (
     <div className={`min-h-full ${className}`}>
-      <nav className='bg-gray-800'>
+      <nav className='bg-[#f4f8fa] border-b-[1px] border-[#cccccc]'>
         <div className='mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center justify-between h-16'>
             <div className='flex items-center'>
               <div className='flex flex-row space-x-2 items-center'>
-                <Image height='40' width='40' src='/favicon.ico' alt='Logo' className='rounded-md' />
-                <p className='text-2xl text-white'>QuikMint</p>
+                <Image
+                  height='40'
+                  width='140'
+                  src='/Quikmint.png'
+                  alt='Logo'
+                  className='rounded-md'
+                />
               </div>
               <div className='hidden md:block' id='desktop menu'>
                 <div className='ml-10 flex items-baseline space-x-4'>
@@ -35,8 +40,8 @@ const Navbar = ({ className }) => {
                       <a
                         className={
                           active === item.path
-                            ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                            ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                            : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
                         }
                         aria-current='page'
                       >
@@ -44,36 +49,41 @@ const Navbar = ({ className }) => {
                       </a>
                     </Link>
                   ))}
-                  {currentUser ? (<><Link href='/dashboard'>
-                    <a
-                      className={
-                        active === '/dashboard'
-                          ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                      }
-                      aria-current='page'
-                    >
-                      Dashboard
-                    </a>
-                  </Link>
-                  <button
-                    className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
-                    onClick={logout}
-                  >
-                    Logout
-                  </button></>) : <Link href='/login'>
-                    <a
-                      className={
-                        active === '/login'
-                          ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                      }
-                      aria-current='page'
-                    >
-                      Log in
-                    </a>
-                  </Link>}
-                  
+                  {currentUser ? (
+                    <>
+                      <Link href='/dashboard'>
+                        <a
+                          className={
+                            active === '/dashboard'
+                              ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                              : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                          }
+                          aria-current='page'
+                        >
+                          Dashboard
+                        </a>
+                      </Link>
+                      <button
+                        className='text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                        onClick={logout}
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <Link href='/login'>
+                      <a
+                        className={
+                          active === '/login'
+                            ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                            : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                        }
+                        aria-current='page'
+                      >
+                        Log in
+                      </a>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -81,7 +91,7 @@ const Navbar = ({ className }) => {
               {/* Mobile menu button */}
               <button
                 type='button'
-                className='bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
+                className='inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-[#ebeeef] hover:border-[1px] hover:border-[#cccccc] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
                 aria-controls='mobile-menu'
                 aria-expanded='false'
                 onClick={() => setOpen(() => !open)}
@@ -140,8 +150,8 @@ const Navbar = ({ className }) => {
                   className={`
                 ${
                   active === item.path
-                    ? 'bg-gray-900 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium'
+                    ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                    : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
                 } 
                 block px-3 py-2 rounded-md text-base font-medium`}
                   aria-current='page'
@@ -150,12 +160,43 @@ const Navbar = ({ className }) => {
                 </a>
               </Link>
             ))}
-            <button
-              className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
-              onClick={logout}
-            >
-              Logout
-            </button>
+            {currentUser ? (
+              <>
+                <Link href='/dashboard'>
+                  <a
+                    className={
+                      active === '/dashboard'
+                        ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                        : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                    }
+                    aria-current='page'
+                  >
+                    Dashboard
+                  </a>
+                </Link>
+                <button
+                  className='text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link href='/login'>
+                <a
+                  className={`
+                ${
+                  active === '/login'
+                    ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                    : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                } 
+                block px-3 py-2 rounded-md text-base font-medium`}
+                  aria-current='page'
+                >
+                  Log in
+                </a>
+              </Link>
+            )}
           </div>
         </div>
       </nav>

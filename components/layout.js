@@ -17,45 +17,12 @@ export default function Layout({ children }) {
     setNav(true)
     if (router.pathname.includes('/dashboard')) setNav(() => false)
   }, [router.pathname])
-  
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url)
-    }
-    router.events.on('routeChangeComplete', handleRouteChange)
-    router.events.on('hashChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-      router.events.off('hashChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
 
   return (
     <>
       <Head>
-        <title>QuikMint</title>
+        <title>QuikMint - Mint NFTs with ease</title>
         <link rel='icon' href='/favicon.ico' />
-        <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
-      <Script
-        id="gtag-init"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-        
-      />
-      
       </Head>
       {nav && <Navbar className='sticky top-0 z-[1000]' />}
       {children}
