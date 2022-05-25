@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+User-agent: *
+Allow: /demo
+
+User-agent: *
+Allow: /contact
+
+User-agent: *
+Disallow: /dashboard

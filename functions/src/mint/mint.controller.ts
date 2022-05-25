@@ -13,16 +13,16 @@ async function mint(req: express.Request, res: express.Response) {
     return
   }
 
-  customerService.update({
-    id: id,
-    initiated: true,
-  })
-
   let docData = await customerService.get(id)
   if (docData.complete || docData.initiated) {
     res.status(400).end(JSON.stringify({ error: 'You can only claim once' }))
     return
   }
+  customerService.update({
+    id: id,
+    initiated: true,
+  })
+  
   const mint = await mintService.mintHdWeb3(address)
   mint.receipt
     .once('transactionHash', hash => {
