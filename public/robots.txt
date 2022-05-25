@@ -9,3 +9,5 @@ Allow: /contact
 
 User-agent: *
 Disallow: /dashboard
+
+Sitemap: https://quikmint.io/sitemap.xml

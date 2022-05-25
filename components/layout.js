@@ -17,6 +17,7 @@ export default function Layout({ children }) {
     setNav(true)
     if (router.pathname.includes('/dashboard')) setNav(() => false)
   }, [router.pathname])
+  
   useEffect(() => {
     const handleRouteChange = (url) => {
       gtag.pageview(url)
@@ -28,6 +29,7 @@ export default function Layout({ children }) {
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   }, [router.events])
+
   return (
     <>
       <Head>

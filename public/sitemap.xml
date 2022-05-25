@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://quikmint.io/about</loc>
+	</url>
+	<!-- <url>
+		<loc>https://quikmint.io/article</loc>
+	</url> -->
+	<url>
+		<loc>https://quikmint.io/contact</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/dashboard</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/demo</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/loading</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/login</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/next-steps</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/setup</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/signup</loc>
+	</url>
+	<url>
+		<loc>https://quikmint.io/status</loc>
+	</url>
+</urlset>
