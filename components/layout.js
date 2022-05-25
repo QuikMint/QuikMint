@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { Footer } from './Footer'
 import Navbar from './Navbar'
 import Script from 'next/script'
+import * as gtag from './gtag'
 
 export default function Layout({ children }) {
 
@@ -16,25 +17,43 @@ export default function Layout({ children }) {
     setNav(true)
     if (router.pathname.includes('/dashboard')) setNav(() => false)
   }, [router.pathname])
-
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('hashChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('hashChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
   return (
     <>
       <Head>
         <title>QuikMint</title>
         <link rel='icon' href='/favicon.ico' />
         <Script
-          src='https://www.googletagmanager.com/gtag/js?id=UA-229750642-1'
-          strategy='afterInteractive'
-        />
-        <Script id='google-analytics' strategy='afterInteractive'>
-          {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-          gtag('config', 'UA-229750642-1');
-        `}
-        </Script>
+            gtag('config', '${gtag.GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+        
+      />
+      
       </Head>
       {nav && <Navbar className='sticky top-0 z-[1000]' />}
       {children}
