@@ -13,8 +13,8 @@ async function mint(req: express.Request, res: express.Response) {
     return
   }
 
-  let docData = await customerService.get(id)
-  if (docData.complete || docData.initiated) {
+  const docData = await customerService.get(id)
+  if (docData.complete === true || docData.initiated === true) {
     res.status(400).end(JSON.stringify({ error: 'You can only claim once' }))
     return
   }
