@@ -1,9 +1,16 @@
+import Head from "next/head"
+
 export default function About(props) {
 
 	return (
-		<div className='mb-[1000px]'>
+		<>
+      <Head>
+        <title>About Us | Quikmint</title>
+      </Head>
+		<main className='mb-[1000px]'>
 			About us
-		</div>
+		</main>
+		</>
 	)
 }
 

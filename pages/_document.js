@@ -12,6 +12,9 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel='icon' href='/favicon.ico' />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+          <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Mina&display=swap" rel="stylesheet"></link>
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}

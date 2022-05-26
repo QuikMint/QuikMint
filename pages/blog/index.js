@@ -2,14 +2,20 @@ import { db } from '../../utils/fire'
 import { collection, getDocs, limit, query, where } from 'firebase/firestore'
 import Image from 'next/image'
 import Link from 'next/link'
+import Head from 'next/head'
 
 export default function Blog(props) {
   return (
-    <main className='flex flex-col items-center justify-start'>
-      {props.blogs.map((blog, i) => (
-        <ArtCard blog={blog} key={i}></ArtCard>
-      ))}
-    </main>
+    <>
+      <Head>
+        <title>Blog | Quikmint</title>
+      </Head>
+      <main className='flex flex-col items-center justify-start'>
+        {props.blogs.map((blog, i) => (
+          <ArtCard blog={blog} key={i}></ArtCard>
+        ))}
+      </main>
+    </>
   )
 }
 
@@ -59,7 +65,7 @@ function ArtCard({ blog }) {
           {blog.title}
         </div>
         <div id='body' className=''>
-          <p className='text-[14px] overflow-clip h-[65px] font-serif text-slate-400'>{blog.body}</p>
+          <p className='text-[14px] overflow-clip h-[65px] font-serif text-slate-400'>{blog.body.substring(0, 200)}...</p>
           <p className='text-[14px] font-serif text-gray-300'>
             ...{' '}
             <Link href={`/blog/${blog.tagname}`}>

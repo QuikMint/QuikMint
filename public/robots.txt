@@ -1,13 +1,10 @@
 User-agent: *
-Allow: /
-
-User-agent: *
-Allow: /demo
-
-User-agent: *
-Allow: /contact
+Crawl-delay: 3
 
 User-agent: *
 Disallow: /dashboard
+
+User-agent: *
+Disallow: /admin
 
 Sitemap: https://quikmint.io/sitemap.xml

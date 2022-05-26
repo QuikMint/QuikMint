@@ -11,7 +11,7 @@ const Navbar = ({ className }) => {
 
   const router = useRouter()
 
-  const [active, setActive] = useState()
+  const [active, setActive] = useState('')
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -35,11 +35,23 @@ const Navbar = ({ className }) => {
               </div>
               <div className='hidden md:block' id='desktop menu'>
                 <div className='ml-10 flex items-baseline space-x-4'>
+                  <Link href='/'>
+                    <a
+                      className={
+                        active === '/'
+                          ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
+                          : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
+                      }
+                      aria-current='page'
+                    >
+                      Home
+                    </a>
+                  </Link>
                   {items.map((item, i) => (
                     <Link href={item.path} key={i}>
                       <a
                         className={
-                          active === item.path
+                          active.indexOf(item.path) >= 0
                             ? 'bg-[#ebeeef] border-[#cccccc] border-[1px] text-black px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all'
                             : 'text-gray-500 hover:bg-[#ebeeef] hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium hover:shadow-sm transition-all'
                         }

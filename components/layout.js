@@ -21,7 +21,6 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>QuikMint - Mint NFTs with ease</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       {nav && <Navbar className='sticky top-0 z-[1000]' />}

@@ -1,19 +1,27 @@
 import { collection, query, getDocs, where, getDoc, limit, doc } from "firebase/firestore"
+import Head from "next/head"
 import { db } from "../../utils/fire"
 
 
 export default function Article( props ) {
   return (
-    <main>
-      <article className='m-6 mb-[100%] flex flex-col p-24 space-y-10'>
-        <div className='space-y-1'>
-          <h1 className=' flex items-center text-5xl'>{props.title}</h1>
-          <h2 className='ml-2'>{props.author}</h2>
-					<h4 className='ml-2 text-xs'>{props.published}</h4>
-        </div>
-        <div className=''>{props.body}</div>
-      </article>
-    </main>
+    <>
+		<Head>
+			<meta name='description'>{props.title}</meta>
+			<title>{props.author} | Quikmint</title>
+		</Head>
+
+      <main>
+        <article className='m-6 mb-[100%] flex flex-col md:p-24 space-y-10'>
+          <div className='space-y-1'>
+            <h1 className=' flex items-center text-5xl'>{props.title}</h1>
+            <h2 className='ml-2'>{props.author}</h2>
+            <h4 className='ml-2 text-xs'>{props.published}</h4>
+          </div>
+          <div className='text-[20px]' dangerouslySetInnerHTML={{ __html: props.body }}></div>
+        </article>
+      </main>
+    </>
   )
 }
 

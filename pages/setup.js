@@ -55,6 +55,7 @@ function Setup() {
           integrity='sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3'
           crossOrigin='anonymous'
         />
+        <title>Account Setup | Quikmint</title>
       </Head>
       <div className='my-3 mx-1'>
         { error && <Alert dismissible variant='danger'>

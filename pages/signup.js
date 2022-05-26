@@ -4,6 +4,7 @@ import { withoutAuth } from '../auth/hooks'
 import { useAuth } from '../auth/AuthProvider'
 import Link from 'next/link'
 import GoogleButton from '../components/google'
+import Head from 'next/head'
 
 function Signup() {
   const { googleLogin, signup, currentUser } = useAuth()
@@ -35,6 +36,10 @@ function Signup() {
   }
 
   return (
+    <>
+      <Head>
+        <title>Sign Up | Quikmint</title>
+      </Head>
     <main className='flex flex-col items-center justify-center space-y-10 pt-20 mb-96'>
       <h1 className='text-3xl'>Sign Up</h1>
       <div
@@ -89,6 +94,7 @@ function Signup() {
         </span>
       </div>
     </main>
+    </>
   )
 }
 
