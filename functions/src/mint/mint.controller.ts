@@ -30,11 +30,11 @@ async function mint(req: express.Request, res: express.Response) {
     })
     .on('confirmation', confNumber => {
       if (confNumber === 1) {
-        res.status(200).end(JSON.stringify({ status: '1 blockchain confirmation' }))
         customerService.update({
           id: id,
           complete: true,
         })
+        res.status(200).end(JSON.stringify({ status: '1 blockchain confirmation' }))
         return
       }
     })
