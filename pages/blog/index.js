@@ -14,7 +14,7 @@ export default function Blog(props) {
 }
 
 export async function getStaticProps() {
-  const q = query(collection(db, 'articles'), where('author', '==', 'Theo Wallace'), limit(15))
+  const q = query(collection(db, 'articles'), limit(15))
   const querySnap = await getDocs(q)
   let blogs = []
   querySnap.forEach(doc => {
@@ -31,12 +31,14 @@ export async function getStaticProps() {
       body: blog.body,
       published: d,
       image: blog.image || '/favicon.ico',
+			tagname: blog.tagname || blog.id
     })
   })
   return {
     props: {
       blogs,
     },
+    revalidate: 60 * 30
   }
 }
 
@@ -60,7 +62,7 @@ function ArtCard({ blog }) {
           <p className='text-[14px] overflow-clip h-[65px] font-serif text-slate-400'>{blog.body}</p>
           <p className='text-[14px] font-serif text-gray-300'>
             ...{' '}
-            <Link href={`/blog/${blog.title}`}>
+            <Link href={`/blog/${blog.tagname}`}>
               <a className='hover:text-gray-800 transition-colors'>Read More</a>
             </Link>
           </p>

@@ -1,4 +1,4 @@
-import { collection, query, getDocs } from "firebase/firestore"
+import { collection, query, getDocs, where, getDoc, limit, doc } from "firebase/firestore"
 import { db } from "../../utils/fire"
 
 
@@ -9,6 +9,7 @@ export default function Article( props ) {
         <div className='space-y-1'>
           <h1 className=' flex items-center text-5xl'>{props.title}</h1>
           <h2 className='ml-2'>{props.author}</h2>
+					<h4 className='ml-2 text-xs'>{props.published}</h4>
         </div>
         <div className=''>{props.body}</div>
       </article>
@@ -19,15 +20,18 @@ export default function Article( props ) {
 export async function getStaticPaths() {
 
 	const q = query(collection(db, 'articles'))
-	const articles = await getDocs(q)
+	const querySnap = await getDocs(q)
+	let articles = []
 
-	const paths = articles.map(article => {
-		return {
-			params: {
-				article: article.title
-			}
-		}
+	querySnap.forEach(a => {
+		articles.push(a.data())
 	})
+
+	const paths = articles.map(article => ({
+    params: {
+      article: article.tagname || article.id,
+    },
+  }))
 
 	return { paths, fallback: false }
 
@@ -35,17 +39,27 @@ export async function getStaticPaths() {
 // monke balls big in my deep ass
 export async function getStaticProps({ params: { article } }) {
 
+	const q = query(collection(db, 'articles'), where('tagname', '==', article))
+	const querySnap = await getDocs(q)
+	let articleDocsOfName = []
+	querySnap.forEach(doc => {
+    articleDocsOfName.push(doc.data())
+  })
+	const articleProp = articleDocsOfName[0]
+
+	const secs = articleProp.published.seconds
+  const d = new Date(secs * 1000).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
 	return {
     props: {
-      title: 'What is an NFT?',
-			author: 'Theo Wallace',
-      body: `In order to understand this topic, we first must understand the blockchain. For our
-        purposes, let${"'"}s think of it as a very long receipt. This receipt is filled with
-        transactions. Through these transactions, data can be stored, sent and modified. Now, an NFT
-        is simply a collection of transactions that represent the transfer of ownership`,
+				title: articleProp.title,
+				author: articleProp.author,
+				body: articleProp.body,
+				published: d
     }
   }
-
-
-	
 }
