@@ -35,8 +35,8 @@ export default function Contact() {
   }
 
   return (
-    <div className='flex justify-center items-center content-center mt-24'>
-      <form className='w-full max-w-lg' onSubmit={handleContact}>
+    <div className='flex justify-center items-center content-center mt-24 mb-96'>
+      <form className='w-full max-w-lg bg-[#f4f8fa] border-[1px] border-[#cccccc] rounded-md p-4' onSubmit={handleContact}>
         <div className='flex flex-wrap -mx-3 mb-6'>
           <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
             <label
@@ -114,18 +114,25 @@ export default function Contact() {
           </div>
         </div>
         <div className='md:flex md:items-center'>
-          <div className='md:w-1/3'>
+          <div className='w-full'>
             <button
-              className='shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
+              className='w-full shadow bg-blue-400 hover:bg-blue-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
               type='submit'
               name='submit'
             >
               Send
             </button>
           </div>
-          <div className='md:w-2/3' />
         </div>
       </form>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      prop: 'hello'
+    }
+  }
 }

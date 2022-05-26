@@ -41,6 +41,7 @@ function Setup() {
       router.push('/dashboard')
 		} catch (err) {
 			console.log(err)
+      setError(err)
 		}
 		setLoading(false)
   }
@@ -178,6 +179,14 @@ function Setup() {
       </div>
     </>
   )
+}
+
+export async function getStatisProps() {
+  return {
+    props: {
+      prop: 'hello'
+    }
+  }
 }
 
 export default withNotSetupUser(Setup)

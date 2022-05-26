@@ -1,8 +1,16 @@
-export default function About() {
+export default function About(props) {
 
 	return (
-		<div className=''>
+		<div className='mb-[1000px]'>
 			About us
 		</div>
 	)
+}
+
+export async function getStaticProps() {
+	return {
+		props: {
+			prop: 'hello'
+		}
+	}
 }

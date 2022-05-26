@@ -92,4 +92,12 @@ function Signup() {
   )
 }
 
+export async function getStaticProps() {
+  return {
+    props: {
+      prop: 'hello',
+    },
+  }
+}
+
 export default withoutAuth(Signup)

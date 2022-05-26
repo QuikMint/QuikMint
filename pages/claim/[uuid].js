@@ -5,16 +5,16 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import Loading from '../../components/loading'
 
-const GetNFT = () => {
+const GetNFT = ( props ) => {
   /**
    * STATE -- Lots of issues. See {@link https://github.com/teoteo123/selfi-monke/blob/main/README.md}
    */
 
   // input disabling
-  const [initiated, setInitiated] = useState(false)
+  const [initiated, setInitiated] = useState(props.initiated)
   const [success, setSuccess] = useState(false)
-  const [complete, setComplete] = useState(true)
-  const [fetching, setFetching] = useState(true)
+  const [complete, setComplete] = useState(props.complete)
+  const [fetching, setFetching] = useState(false)
 
   //input handlers
   const [nerd, setNerd] = useState(false)
@@ -52,7 +52,7 @@ const GetNFT = () => {
           setFetching(() => false)
         })
     }
-  }, [uuid, success])
+  }, [success])
 
   //output "All done" once {{success}} is true
   useEffect(() => {
@@ -136,7 +136,7 @@ const GetNFT = () => {
           id='gen-private'
           className='bg-blue-500 hover:bg-blue-700 text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
         >
-          {complete ? 'You already claimed' : 'Generate'}
+          Generate
         </button>
       </>
     )
@@ -243,7 +243,11 @@ const GetNFT = () => {
                 <Loading />
               </>
             ) : complete ? (
-              "You've already claimed your NFT"
+              props.exists ? (
+                "You've already claimed your NFT"
+              ) : (
+                "User Not Found"
+              )
             ) : (
               <FormSwitch />
             )}
@@ -253,6 +257,25 @@ const GetNFT = () => {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+
+  const v4 = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)
+
+  const props = { initiated: true, complete: true, exists: false }
+
+  const uuid = context.params.uuid
+
+  if (uuid !== undefined && v4.test(uuid)) {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/customers/${uuid}`)
+      props.exists = response.data.id !== undefined
+      props.complete = response.data.complete || response.data.initiated || true
+      props.initiated = response.data.initiated || true
+    
+  }
+  return { props }
+
 }
 
 export default GetNFT

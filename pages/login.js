@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { withoutAuth } from '../auth/hooks'
 import { useAuth } from '../auth/AuthProvider'
 import Link from 'next/link'
 import GoogleButton from '../components/google'
 
-function Login() {
-	const { googleLogin, emailPassLogin } = useAuth()
+function Login(props) {
+	const { emailPassLogin } = useAuth()
 
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -80,3 +80,11 @@ function Login() {
 }
 
 export default withoutAuth(Login)
+
+export async function getStaticProps() {
+  return {
+    props: {
+      prop: 'hello'
+    }
+  }
+}

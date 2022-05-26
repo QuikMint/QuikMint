@@ -77,3 +77,11 @@ export default function nextSteps() {
     </div>
   )
 }
+
+export async function getStaticProps() {
+  return {
+    props: {
+      prop: 'hello'
+    }
+  }
+}

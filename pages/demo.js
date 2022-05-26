@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import router from 'next/router'
 
-export default function Demo() {
+export default function Demo(props) {
   const buyNFTs = () => {
     router.push('https://buy.stripe.com/test_9AQ5mJbLH0RsbPqfYY')
   }
@@ -9,7 +9,7 @@ export default function Demo() {
   return (
     <main className='flex flex-row justify-center mb-32 mt-20'>
       <div className='rounded-md p-4 md:p-10 space-y-2 w-[30rem] bg-[#f6f8fa] border-[1px] border-[#d8dee4]'>
-        <h1 className='text-4xl text-center font-semibold mb-8 mt-8'>Selfi Monke</h1>
+        <h1 className='text-4xl text-center font-semibold mb-8 mt-8'>{props.demoName}</h1>
         <div className='justify-center flex relative'>
           <Image
             src='/monke.ico'
@@ -39,4 +39,12 @@ export default function Demo() {
       </div>
     </main>
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      demoName: 'SelfiMonke'
+    }
+  }
 }

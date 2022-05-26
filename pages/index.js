@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function QuikMint() {
+function QuikMint(props) {
   return (
     <main className='mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-10 lg:px-8 xl:mt-14 mb-60'>
       <h1 className='text-6xl text-blue-600 my-6 rounded-lg bg-indigo-100 p-4 w-min'>QuikMint</h1>
@@ -38,3 +38,11 @@ function QuikMint() {
 }
 
 export default QuikMint
+
+export function getStaticProps() {
+  return {
+    props: {
+      prop: 'hello'
+    }
+  }
+}
