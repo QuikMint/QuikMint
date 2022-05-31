@@ -14,7 +14,7 @@ export default function Graph() {
   useEffect(() => {
     axios
       .post(process.env.NEXT_PUBLIC_GRAPH_FUNCTION_URL, {'timeframe': timeframe, 'id': currentUser.uid.toString() })
-      .then(res => setGraphData(res.data))
+      .then(res => setGraphData(res.data.reverse()))
   }, [timeframe])
 
   useEffect(() => setTimeframe('d'), [])
