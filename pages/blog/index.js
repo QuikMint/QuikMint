@@ -25,7 +25,7 @@ export async function getStaticProps() {
   let blogs = []
   querySnap.forEach(doc => {
     const blog = doc.data()
-    const secs = blog.published.seconds
+    const secs = blog.published?.seconds || blog.timestamp.seconds
     const d = new Date(secs * 1000).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',

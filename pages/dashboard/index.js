@@ -17,6 +17,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!currentUser) return
     const ref = doc(db, 'clients', currentUser.uid)
     getDoc(ref).then(snap => {
       setUserData(snap.data())
@@ -201,30 +202,7 @@ function Dashboard() {
                   </svg>
                 </div>
                 <div id='graph' className='w-auto h-[360px]'>
-                  <div
-                    id='graph-head'
-                    className='bg-[#fffbfc] border-1 flex flex-row justify-start items-center h-[60px] p-2 px-3 rounded-t-[10px]'
-                  >
-                    <button className='bg-[#C3BBFF] text-center border-1 border-[#cccccc] rounded-tl rounded-bl px-3 text-[12px] hover:shadow-md'>
-                      24h
-                    </button>
-                    <button className='bg-[#f3ebff] text-center border-1 border-[#cccccc] px-3 text-[12px] hover:shadow-md'>
-                      1w
-                    </button>
-                    <button className='bg-[#f3ebff] text-center border-1 border-[#cccccc] px-3 text-[12px] hover:shadow-md'>
-                      1m
-                    </button>
-                    <button className='bg-[#f3ebff] text-center border-1 border-[#cccccc] rounded-tr rounded-br px-3 text-[12px] hover:shadow-md'>
-                      1y
-                    </button>
-                  </div>
-                  <div
-                    id='graph-body'
-                    className='bg-[#f4f8fa] w-auto h-[90%] rounded-b-[10px] border-x-[1px] border-b-[1px]'
-                  >
-                    <div id='badge'></div>
                     <Graph />
-                  </div>
                 </div>
               </div>
               <div id='payment-right' className='w-full'>

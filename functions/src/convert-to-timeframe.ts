@@ -180,17 +180,17 @@ async function getTransactions(id: string, timeframe: string): Promise<GraphData
   }
 }
 async function call(req: https.Request, res: e.Response<any>) {
-  corsHandler(req, res, () => {})
+  corsHandler(req, res, async () => {
+    const client_id: string = req.body.id as string
 
-  const client_id: string = req.body.id
+    //'d', 'w', 'm', 'y'
+    const timeframe: string = req.body.timeframe as string
 
-  //'d', 'w', 'm', 'y'
-  const timeframe: string = req.body.timeframe
+    console.log(client_id + ' ' + req)
 
-  console.log(client_id + ' ' + req);
+    const data = await getTransactions(client_id, timeframe)
 
-  const data = await getTransactions(client_id, timeframe)
-
-  res.status(200).send(data)
+    res.status(200).send(data)
+  })
 }
 export const convertToTimeFrame = https.onRequest(call)
