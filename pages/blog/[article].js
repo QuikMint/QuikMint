@@ -55,7 +55,7 @@ export async function getStaticProps({ params: { article } }) {
   })
 	const articleProp = articleDocsOfName[0]
 
-	const secs = articleProp.published.seconds
+	const secs = articleProp.published.seconds || article.timestamp.seconds
   const d = new Date(secs * 1000).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
