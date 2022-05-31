@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import SideNav from '../../components/admin/sideNav'
 import { getTotalSupply } from '../../components/TotalSupply'
 import InquiryTable from '../../components/admin/inquiryTable'
+import { withAdmin } from '../../auth/hooks'
 
-export default function Admin() {
+function Admin() {
   
   useEffect(() => {
     getTotalSupply().then(supplyStr => setSupply(() => supplyStr))
@@ -110,3 +111,5 @@ export default function Admin() {
     </div>
   )
 }
+
+export default withAdmin(Admin)

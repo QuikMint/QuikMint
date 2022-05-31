@@ -1,4 +1,6 @@
-export default function AccountDash() {
+import { withSetupUser } from "../../auth/hooks"
+
+function AccountDash() {
 
 	return (
 		<div className=''>
@@ -6,3 +8,5 @@ export default function AccountDash() {
 		</div>
 	)
 }
+
+export default withSetupUser(AccountDash)

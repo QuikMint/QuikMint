@@ -12,7 +12,7 @@ import {
 } from 'firebase/auth'
 import { useContext, createContext, useEffect, useState } from 'react'
 import { auth, db } from '../utils/fire'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
 

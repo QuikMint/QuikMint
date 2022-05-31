@@ -1,4 +1,6 @@
-export default function NewContract() {
+import { withSetupUser } from "../../../auth/hooks"
+
+function NewContract() {
 
 	return (
 		<div className=''>
@@ -6,3 +8,5 @@ export default function NewContract() {
 		</div>
 	)
 }
+
+export default withSetupUser(NewContract)

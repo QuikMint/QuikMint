@@ -7,8 +7,9 @@ import DashNav from '../../../components/Navbar/dash'
 import { Table } from 'react-bootstrap'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { withSetupUser } from '../../../auth/hooks'
 
-export default function ContractDashboard() {
+function ContractDashboard() {
   const { currentUser } = useAuth()
   const router = useRouter()
 
@@ -105,3 +106,5 @@ export default function ContractDashboard() {
     </>
   )
 }
+
+export default withSetupUser(ContractDashboard)

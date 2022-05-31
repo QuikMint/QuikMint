@@ -10,7 +10,7 @@ export default function Blog(props) {
       <Head>
         <title>Blog | Quikmint</title>
       </Head>
-      <main className='flex flex-col items-center justify-start'>
+      <main className='flex flex-col items-center justify-start pt-10'>
         {props.blogs.map((blog, i) => (
           <ArtCard blog={blog} key={i}></ArtCard>
         ))}

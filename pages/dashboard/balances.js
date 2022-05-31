@@ -1,14 +1,14 @@
 import { withSetupUser } from "../../auth/hooks"
 import DashNav from "../../components/Navbar/dash"
 
-function Settings() {
+function Balances() {
 
 	return (
 		<main className=''>
 			<DashNav />
-				
+			Lorem Ipsum
 		</main>
 	)
 }
 
-export default withSetupUser(Settings)
+export default withSetupUser(Balances)

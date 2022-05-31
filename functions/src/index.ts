@@ -2,7 +2,7 @@ import express from 'express'
 const app = express();
 import helmet from 'helmet'
 import cors from 'cors'
-import { https } from 'firebase-functions'
+import { runWith } from 'firebase-functions'
 
 app.use(cors())
 app.use(helmet())
@@ -25,4 +25,9 @@ import { mintRouter } from './mint'
 app.use('/mint', mintRouter)
 
 
-export const qmtest = https.onRequest(app)
+export const qmtest = runWith({
+	timeoutSeconds: 300
+}).https.onRequest(app)
+
+export { firebaseInquiryEmail } from './firebase-inquiry-email'
+export { convertToTimeFrame } from './convert-to-timeframe'

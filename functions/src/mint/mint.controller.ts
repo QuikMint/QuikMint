@@ -43,7 +43,7 @@ async function mint(req: express.Request, res: express.Response) {
         id: id,
         initiated: false,
       })
-      res.status(500).end(JSON.stringify({ error: 'Mint Error' }))
+      res.status(400).end(JSON.stringify({ error: 'Mint Error' }))
       return
     })
     .catch(e => {
@@ -51,7 +51,7 @@ async function mint(req: express.Request, res: express.Response) {
         id: id,
         initiated: false,
       })
-      res.status(500).end(e)
+      res.status(400).end(JSON.stringify({ error: e }))
     })
 }
 

@@ -10,17 +10,17 @@ export const Footer = () => {
         <div className='w-full md:items-center md:w-auto' id='menu'>
           <ul className='p--2 text-base flex md:justify-between md:pt-0 space-x-4'>
             <li className='h-6 w-6 relative hover:cursor-pointer'>
-              <Link href='https://twitter.com/selfimonke' passHref>
+              <Link href='https://twitter.com/quikmint_io' passHref>
                 <Image alt='social' src='/twitter.svg' layout='fill' objectFit='cover' />
               </Link>
             </li>
             <li className='h-6 w-6 relative hover:cursor-pointer'>
-              <Link href='https://instagram.com/selfimonke' passHref>
+              <Link href='https://instagram.com/quikmint_io' passHref>
                 <Image alt='social' src='/instagram.svg' layout='fill' objectFit='cover' />
               </Link>
             </li>
             <li className='h-6 w-6 relative hover:cursor-pointer'>
-              <Link href='https://github.com/teoteo123' passHref>
+              <Link href='https://github.com/QuikMint/QuikMint' passHref>
                 <Image alt='social' src='/github.svg' layout='fill' objectFit='cover' />
               </Link>
             </li>

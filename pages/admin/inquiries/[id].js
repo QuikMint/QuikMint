@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react'
 import SideNav from '../../../components/admin/sideNav'
 import { db } from '../../../utils/fire'
 import Link from 'next/link'
+import { withAdmin } from '../../../auth/hooks'
 
-export default function OneInquiry() {
+function OneInquiry() {
   const [inquiry, setInquiry] = useState(undefined)
 	const [pageError, setPageError] = useState('')
 	const [response, setResponse] = useState()
@@ -70,3 +71,5 @@ export default function OneInquiry() {
     </div>
   )
 }
+
+export default withAdmin(OneInquiry)
