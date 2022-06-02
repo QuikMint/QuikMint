@@ -1,11 +1,13 @@
 import { withSetupUser } from "../../../auth/hooks"
+import DashNav from "../../../components/Navbar/dash"
 
 function NewContract() {
 
 	return (
-		<div className=''>
+		<main className=''>
+			<DashNav />
 			Contract Creation
-		</div>
+		</main>
 	)
 }
 

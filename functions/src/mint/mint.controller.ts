@@ -34,6 +34,7 @@ async function mint(req: express.Request, res: express.Response) {
           id: id,
           complete: true,
         })
+        //add transaction to db
         res.status(200).end(JSON.stringify({ status: '1 blockchain confirmation' }))
         return
       }

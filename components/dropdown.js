@@ -64,7 +64,7 @@ export function ActionsDropdown() {
       >
         <div className='py-1' role='none'>
           {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
-          <Link href='/contract/new' role='menuitem' tabIndex='-1' id='menu-item-1'>
+          <Link href='/dashboard/contract/new' role='menuitem' tabIndex='-1' id='menu-item-1'>
             <a
               className={`block px-4 py-2 text-sm ${
                 active.indexOf('profile') > -1 ? 'bg-gray-100 text-gray-900' : 'text-gray-700'

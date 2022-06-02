@@ -2,6 +2,8 @@ import Web3 from 'web3'
 import Provider from '@truffle/hdwallet-provider'
 import { AbiItem } from 'web3-utils'
 import Minter from '../contract/MyToken.json'
+import { TransactionReceipt } from 'web3/types'
+import db from '../config/firestore.config'
 
 async function mintHdWeb3(address: string) {
   console.log('[ INITIATED ]')
@@ -72,5 +74,15 @@ async function mintWeb3(address: string) {
     return { success: false }
   }
 }
+
+// function dbTransactionAdd(receipt: TransactionReceipt, contract_id: string, ) {
+//   db.collection('transactions').add({
+//     client_id: ,
+//     contract_id: ,
+//     customer_id: ,
+//     fee: receipt.gasUsed ,
+//     price: ,
+//   })
+// }
 
 export const mintService = { mintWeb3, mintHdWeb3 }
