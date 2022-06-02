@@ -5,6 +5,12 @@ User-agent: *
 Disallow: /dashboard
 
 User-agent: *
+Disallow: /status
+
+User-agent: *
+Disallow: /setup
+
+User-agent: *
 Disallow: /admin
 
 Sitemap: https://quikmint.io/sitemap.xml
